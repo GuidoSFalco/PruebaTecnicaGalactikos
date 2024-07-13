@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, { useState, useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
 import {
@@ -26,62 +19,104 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 type SectionProps = PropsWithChildren<{
   team: string;
   goals: number;
   yellow_cards: number;
   shots: number;
+  points: number;
 }>;
 
-function Card({ children, team, goals, yellow_cards, shots }: SectionProps): React.JSX.Element {
+function Card({ children, team, goals, yellow_cards, shots, points }: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.card}>
-      <Text
-        style={[
-          styles.title,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
+      {/* Nombre Equipo */}
+      <Text style={styles.team}>
         {team}
       </Text>
-      <Text
+
+      <View style={{ flexGrow: 1, flexDirection: 'row', marginVertical: 40 }}>
+
+        {/* Disparos */}
+        <View style={{ flexGrow: 1 }}>
+          <Text
+            style={[
+              styles.shots,
+              {
+                color: isDarkMode ? Colors.white : '#424242',
+              },
+            ]}>
+            DISPAROS
+          </Text>
+          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: 'black' }}>
+            {shots}
+          </Text>
+        </View>
+
+        {/* Goles */}
+        <View style={{ flexGrow: 1 }}>
+          <Text
+            style={[
+              styles.goals,
+              {
+                color: isDarkMode ? Colors.white : '#424242',
+              },
+            ]}>
+            GOLES
+          </Text>
+          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: '#FF9800' }}>
+            {goals}
+          </Text>
+        </View>
+
+        <View style={{ flexGrow: 1 }}>
+
+          {/* Tarjetas amarillas */}
+          <Text
+            style={[
+              styles.yellow_cards,
+              {
+                color: isDarkMode ? Colors.white : '#424242',
+              },
+            ]}>
+            AMARILLAS
+          </Text>
+          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: '#B71C1C' }}>
+            {yellow_cards}
+          </Text>
+        </View>
+      </View>
+
+
+      <View>
+        {/* Puntos */}
+        <Text
+          style={[
+            styles.goals,
+            {
+              color: isDarkMode ? Colors.white : '#198754',
+            },
+          ]}>
+          PUNTOS
+        </Text>
+        <Text
+          style={{ marginHorizontal: 'auto', color: '#198754', fontSize: 40, fontWeight: 'bold' }}>
+          {points}
+        </Text>
+      </View>
+
+      {/* <Text
         style={[
-          styles.title,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {goals}
-      </Text>
-      <Text
-        style={[
-          styles.title,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {yellow_cards}
-      </Text>
-      <Text
-        style={[
-          styles.title,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {shots}
-      </Text>
-      <Text
-        style={[
-          styles.description,
+          styles.shots,
           {
             color: isDarkMode ? Colors.light : Colors.dark,
           },
         ]}>
         {children}
-      </Text>
+      </Text> */}
     </View>
   );
 }
@@ -93,10 +128,10 @@ function App() {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
   interface Props {
-    cards: { id: number; team: string; goals:number; yellow_cards:number; shots:number }[];
+    cards: { id: number; team: string; goals: number; yellow_cards: number; shots: number, points: number }[];
   }
   // const [cards, setCards] = useState<CardData[]>([]);
-  const [cards, setCards] = useState<{ id: number; team: string; goals:number; yellow_cards:number; shots:number }[]>([]);
+  const [cards, setCards] = useState<{ id: number; team: string; goals: number; yellow_cards: number; shots: number, points: number }[]>([]);
 
   // interface CardData {
   //   id: number;
@@ -139,18 +174,18 @@ function App() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            paddingTop: 40
           }}>
 
           {/* <Section title={cards.title}></Section> */}
           {cards.map((card) => (
-      <Card key={card.id} team={card.team} goals={card.goals} yellow_cards={card.yellow_cards} shots={card.shots}>
-        
-      </Card>
-    ))}
+            <Card key={card.id} team={card.team} goals={card.goals} yellow_cards={card.yellow_cards} shots={card.shots} points={card.points}>
+
+            </Card>
+          ))}
 
           {/* {cards.map(element => (
               <Card
@@ -160,7 +195,7 @@ function App() {
               />
             ));} */}
 
-{/* {cards && cards.map((item) => (
+          {/* {cards && cards.map((item) => (
         <Card
           key={item.id}
           title={item.title}
@@ -203,6 +238,7 @@ const styles = StyleSheet.create({
 
 
   card: {
+    // backgroundColor: '#E1F5FE',
     backgroundColor: '#fff',
     borderRadius: 8,
     padding: 16,
@@ -215,14 +251,33 @@ const styles = StyleSheet.create({
     shadowRadius: 2.62,
     elevation: 4,
     marginVertical: 8,
+    // paddingHorizontal: 48,
+    marginHorizontal: 24,
+
   },
-  title: {
-    fontSize: 18,
+
+  team: {
+    color: '#0277bd',
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 8,
+    paddingVertical: 24,
+    marginHorizontal: 'auto',
   },
-  description: {
+
+  goals: {
+    color: '#198754',
     fontSize: 16,
+    marginHorizontal: 'auto'
+  },
+
+  shots: {
+    fontSize: 16,
+    marginHorizontal: 'auto'
+  },
+
+  yellow_cards: {
+    fontSize: 16,
+    marginHorizontal: 'auto'
   },
 });
 
