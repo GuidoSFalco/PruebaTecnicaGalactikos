@@ -1,18 +1,147 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react'
+import {
+  FlatList,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  useColorScheme,
+  View
+} from 'react-native';
 
-const Card = ({ title, description }) => {
+import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+
+function Card({ team, goals, yellow_cards, shots, points }) {
+  const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
+      {/* Nombre Equipo */}
+      <Text style={styles.team}>
+        {team}
+      </Text>
+
+      <View style={{ flexGrow: 1, flexDirection: 'row', marginVertical: 40 }}>
+
+        {/* Disparos */}
+        <View style={{ flexGrow: 1 }}>
+          <Text
+            style={[
+              styles.shots,
+              {
+                color: isDarkMode ? Colors.white : '#424242',
+              },
+            ]}>
+            DISPAROS
+          </Text>
+          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: 'black' }}>
+            {shots}
+          </Text>
+        </View>
+
+        {/* Goles */}
+        <View style={{ flexGrow: 1 }}>
+          <Text
+            style={[
+              styles.goals,
+              {
+                color: isDarkMode ? Colors.white : '#424242',
+              },
+            ]}>
+            GOLES
+          </Text>
+          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: '#0D6EFD' }}>
+            {goals}
+          </Text>
+        </View>
+
+        <View style={{ flexGrow: 1 }}>
+
+          {/* Tarjetas amarillas */}
+          <Text
+            style={[
+              styles.yellow_cards,
+              {
+                color: isDarkMode ? Colors.white : '#424242',
+              },
+            ]}>
+            AMARILLAS
+          </Text>
+          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: '#B71C1C' }}>
+            {yellow_cards}
+          </Text>
+        </View>
+      </View>
+
+
+      <View>
+        {/* Puntos */}
+        <Text
+          style={[
+            styles.goals,
+            {
+              color: isDarkMode ? Colors.white : '#198754',
+            },
+          ]}>
+          PUNTOS
+        </Text>
+
+        <View style={{ backgroundColor: '#D1E7DD', marginHorizontal: 'auto', paddingHorizontal: 12, borderRadius: 40 }}>
+          <Text
+            style={{ marginHorizontal: 'auto', color: '#198754', fontSize: 40, fontWeight: 'bold' }}>
+            {points}
+          </Text>
+        </View>
+      </View>
+
+      {/* <Text
+        style={[
+          styles.shots,
+          {
+            color: isDarkMode ? Colors.light : Colors.dark,
+          },
+        ]}>
+        {children}
+      </Text> */}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  highlight: {
+    fontWeight: '700',
+  },
+
+  appTitle: {
+    marginHorizontal: 'auto',
+    marginVertical: 20,
+    fontSize: 40
+  },
+
+
   card: {
-    backgroundColor: '#000',
+    // backgroundColor: '#E1F5FE',
+    backgroundColor: '#fff',
     borderRadius: 8,
     padding: 16,
     shadowColor: '#000',
@@ -24,15 +153,35 @@ const styles = StyleSheet.create({
     shadowRadius: 2.62,
     elevation: 4,
     marginVertical: 8,
+    // paddingHorizontal: 48,
+    marginHorizontal: 24,
+
   },
-  title: {
-    fontSize: 18,
+
+  team: {
+    // color: '#0277bd',
+    color: '#FF9800',
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 8,
+    paddingVertical: 24,
+    marginHorizontal: 'auto',
   },
-  description: {
+
+  goals: {
+    color: '#198754',
     fontSize: 16,
+    marginHorizontal: 'auto'
+  },
+
+  shots: {
+    fontSize: 16,
+    marginHorizontal: 'auto'
+  },
+
+  yellow_cards: {
+    fontSize: 16,
+    marginHorizontal: 'auto'
   },
 });
 
-export default Card;
+export default Card

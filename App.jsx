@@ -19,102 +19,10 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Card from './src/components/Card';
 
 
-function Card({ team, goals, yellow_cards, shots, points }) {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.card}>
-      {/* Nombre Equipo */}
-      <Text style={styles.team}>
-        {team}
-      </Text>
 
-      <View style={{ flexGrow: 1, flexDirection: 'row', marginVertical: 40 }}>
-
-        {/* Disparos */}
-        <View style={{ flexGrow: 1 }}>
-          <Text
-            style={[
-              styles.shots,
-              {
-                color: isDarkMode ? Colors.white : '#424242',
-              },
-            ]}>
-            DISPAROS
-          </Text>
-          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: 'black' }}>
-            {shots}
-          </Text>
-        </View>
-
-        {/* Goles */}
-        <View style={{ flexGrow: 1 }}>
-          <Text
-            style={[
-              styles.goals,
-              {
-                color: isDarkMode ? Colors.white : '#424242',
-              },
-            ]}>
-            GOLES
-          </Text>
-          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: '#0D6EFD' }}>
-            {goals}
-          </Text>
-        </View>
-
-        <View style={{ flexGrow: 1 }}>
-
-          {/* Tarjetas amarillas */}
-          <Text
-            style={[
-              styles.yellow_cards,
-              {
-                color: isDarkMode ? Colors.white : '#424242',
-              },
-            ]}>
-            AMARILLAS
-          </Text>
-          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: '#B71C1C' }}>
-            {yellow_cards}
-          </Text>
-        </View>
-      </View>
-
-
-      <View>
-        {/* Puntos */}
-        <Text
-          style={[
-            styles.goals,
-            {
-              color: isDarkMode ? Colors.white : '#198754',
-            },
-          ]}>
-          PUNTOS
-        </Text>
-
-        <View style={{ backgroundColor: '#D1E7DD', marginHorizontal: 'auto', paddingHorizontal: 12, borderRadius: 40 }}>
-          <Text
-            style={{ marginHorizontal: 'auto', color: '#198754', fontSize: 40, fontWeight: 'bold' }}>
-            {points}
-          </Text>
-        </View>
-      </View>
-
-      {/* <Text
-        style={[
-          styles.shots,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text> */}
-    </View>
-  );
-}
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
