@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import type { PropsWithChildren } from 'react';
+// import type { PropsWithChildren } from 'react';
 import {
   FlatList,
   SafeAreaView,
@@ -7,8 +7,9 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
-  View,
+  View
 } from 'react-native';
 
 import {
@@ -19,17 +20,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 
-type SectionProps = PropsWithChildren<{
-  team: string;
-  goals: number;
-  yellow_cards: number;
-  shots: number;
-  points: number;
-}>;
-
-function Card({ children, team, goals, yellow_cards, shots, points }: SectionProps): React.JSX.Element {
+function Card({ team, goals, yellow_cards, shots, points }) {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.card}>
@@ -67,7 +59,7 @@ function Card({ children, team, goals, yellow_cards, shots, points }: SectionPro
             ]}>
             GOLES
           </Text>
-          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: '#FF9800' }}>
+          <Text style={{ marginHorizontal: 'auto', fontSize: 30, color: '#0D6EFD' }}>
             {goals}
           </Text>
         </View>
@@ -102,10 +94,13 @@ function Card({ children, team, goals, yellow_cards, shots, points }: SectionPro
           ]}>
           PUNTOS
         </Text>
-        <Text
-          style={{ marginHorizontal: 'auto', color: '#198754', fontSize: 40, fontWeight: 'bold' }}>
-          {points}
-        </Text>
+
+        <View style={{ backgroundColor: '#D1E7DD', marginHorizontal: 'auto', paddingHorizontal: 12, borderRadius: 40 }}>
+          <Text
+            style={{ marginHorizontal: 'auto', color: '#198754', fontSize: 40, fontWeight: 'bold' }}>
+            {points}
+          </Text>
+        </View>
       </View>
 
       {/* <Text
@@ -127,17 +122,9 @@ function App() {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-  interface Props {
-    cards: { id: number; team: string; goals: number; yellow_cards: number; shots: number, points: number }[];
-  }
   // const [cards, setCards] = useState<CardData[]>([]);
-  const [cards, setCards] = useState<{ id: number; team: string; goals: number; yellow_cards: number; shots: number, points: number }[]>([]);
+  let [cards, setCards] = useState([])
 
-  // interface CardData {
-  //   id: number;
-  //   title: string;
-  //   description: string;
-  // }
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -154,15 +141,8 @@ function App() {
     fetchCards();
   }, []);
 
-  // useEffect(() => {
-  //   axios.get('http://127.0.0.1:5000/api/data')
-  //     .then(response => {
-  //       console.log(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }, []);
+  
+
 
 
   return (
@@ -179,39 +159,21 @@ function App() {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
             paddingTop: 40
           }}>
+            <Text style={styles.appTitle}>
+              FutScores
+            </Text>
 
-          {/* <Section title={cards.title}></Section> */}
-          {cards.map((card) => (
-            <Card key={card.id} team={card.team} goals={card.goals} yellow_cards={card.yellow_cards} shots={card.shots} points={card.points}>
-
-            </Card>
+          {cards.map(card => (
+            <Card
+              key={card.id}
+              team={card.team}
+              goals={card.goals}
+              yellow_cards={card.yellow_cards}
+              shots={card.shots}
+              points={card.points}
+            />
           ))}
 
-          {/* {cards.map(element => (
-              <Card
-                key={element.id} // Agrega una prop 'key' única para cada elemento
-                title={element.title}
-                description={element.description}
-              />
-            ));} */}
-
-          {/* {cards && cards.map((item) => (
-        <Card
-          key={item.id}
-          title={item.title}
-          description={item.description}
-        />
-      ))} */}
-
-          {/* <FlatList
-              data={cards}
-              renderItem={({ item }) => (
-                <View>
-                  <Text>{item.title}</Text>
-                  <Text>{item.description}</Text>
-                </View>
-              )}
-            /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -236,6 +198,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
+  appTitle: {
+    marginHorizontal: 'auto',
+    marginVertical: 20,
+    fontSize: 40
+  },
+
 
   card: {
     // backgroundColor: '#E1F5FE',
@@ -257,7 +225,8 @@ const styles = StyleSheet.create({
   },
 
   team: {
-    color: '#0277bd',
+    // color: '#0277bd',
+    color: '#FF9800',
     fontSize: 24,
     fontWeight: 'bold',
     paddingVertical: 24,
